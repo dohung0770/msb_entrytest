@@ -1,9 +1,8 @@
 import { User } from "@/types";
-import { nanoid } from "nanoid";
 
 export default [
   {
-    id: nanoid(),
+    id: 1,
     firstName: 'Minh',
     lastName: 'Ngoc',
     citizenId: '022090001234',
@@ -11,7 +10,8 @@ export default [
     email: 'minhngoc@gmail.com',
     username: 'minhngoc07',
     password: '1234',
-    imageUrl: '',
+    image: '',
+    gender: 'male',
     bio: 'Just eating'
   }
 ] as User[]

@@ -4,7 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons'
 import { DownIcon, PhoneIcon } from "@/assets/icons";
 import { authAtom, loginAtom, supportationAtom } from "@/store";
-import { useAuth } from "@/hooks";
+import { useAuth, useProductsData } from "@/hooks";
+import { Product } from "@/types";
+
+function getMenuItems(data: Product[]): MenuProps['items'] {
+  return data.map(product => ({
+    label: product.name,
+    key: product.id,
+    children: product?.subProducts ? getMenuItems(product.subProducts) : undefined
+  }))
+}
 
 export function Header() {
   const navigate = useNavigate()
@@ -12,57 +21,22 @@ export function Header() {
   const startLoggingIn = useSetRecoilState(loginAtom)
   const requestSupportation = useSetRecoilState(supportationAtom)
   const { isAuthenticated, user } = useRecoilValue(authAtom)
-
   const { signOut } = useAuth()
+  const { products = [] } = useProductsData()
 
   const menuItems: MenuProps['items'] = [
     {
-      label: "Sản phẩm",
-      key: 'product',
-      children: [
-        {
-          label: "Thẻ tín dụng",
-          key: 'creditCard',
-          children: [
-            {
-              label: "MSB Mastercard mDigi",
-              key: 'mDigi'
-            },
-            {
-              label: "MSB Mastercard Super Free",
-              key: 'superFree'
-            },
-            {
-              label: "MSB Visa Online",
-              key: 'visaOnline'
-            },
-            {
-              label: "MSB Visa Travel",
-              key: 'visaTravel'
-            },
-            {
-              label: "MSB Visa Signature",
-              key: 'visaSignature'
-            }
-          ]
-        },
-        {
-          label: "Vay",
-          key: 'lend'
-        },
-        {
-          label: "Bảo hiểm",
-          key: 'insurrance'
-        }
-      ]
+      label: 'Sản phẩm',
+      key: 'products',
+      children: getMenuItems(products),
     },
     {
-      label: "So sánh",
-      key: 'comparison'
+      label: 'So sánh',
+      key: 'comparision'
     },
     {
-      label: "Câu hỏi thường gặp",
-      key: 'relatedQuestions'
+      label: 'Câu hỏi thường gặp',
+      key: 'commonQuestions'
     }
   ]
 
@@ -89,7 +63,10 @@ export function Header() {
       </Link>
 
       <div className="right flex">
-        <Menu items={menuItems} mode="horizontal" style={{ minWidth: 0, flex: "auto" }} />
+        <Menu
+          items={menuItems}
+          mode="horizontal"
+          style={{ minWidth: 0, flex: "auto" }} />
 
         <Button onClick={() => requestSupportation(true)}>Yêu cầu tư vấn</Button>
 
@@ -113,7 +90,7 @@ export function Header() {
             }}>
               <a onClick={(e) => e.preventDefault()} className="user-avatar">
                 <Space>
-                  <Avatar icon={<UserOutlined />} />
+                  <Avatar icon={<UserOutlined />} src={user?.image} />
                   {fullName}
                   <DownIcon />
                 </Space>

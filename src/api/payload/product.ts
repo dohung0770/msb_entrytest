@@ -6,13 +6,69 @@ export default [
     id: nanoid(),
     name: 'Thẻ tín dụng',
     description: 'Đa dạng lựu chọn phong cách chi tiêu',
-    imageUrl: '/img/Frame626244.png'
+    imageUrl: '/img/Frame626244.png',
+    subProducts: [
+      {
+        id: nanoid(),
+        name: "MSB Mastercard mDigi",
+      },
+      {
+        id: nanoid(),
+        name: "MSB Mastercard Super Free",
+      },
+      {
+        id: nanoid(),
+        name: "MSB Visa Online",
+      },
+      {
+        id: nanoid(),
+        name: "MSB Visa Travel",
+      },
+      {
+        id: nanoid(),
+        name: "MSB Visa Signature",
+      }
+    ]
   },
   {
     id: nanoid(),
-    name: 'Vay linh hoạt',
+    name: 'Vay',
     description: 'Giải ngân tức thì, tiêu dùng linh hoạt',
-    imageUrl: '/img/Frame626245.png'
+    imageUrl: '/img/Frame626245.png',
+    subProducts: [
+      {
+        id: nanoid(),
+        name: 'Vay mua ô tô',
+        subProducts: [
+          {
+            id: nanoid(),
+            name: 'Vay mua ô tô mới',
+          },
+          {
+            id: nanoid(),
+            name: 'Vay mua ô tô cũ',
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        name: 'Vay mua nhà, xây sửa nhà',
+        subProducts: [
+          {
+            id: nanoid(),
+            name: 'Vay mua nhà thổ cư',
+          },
+          {
+            id: nanoid(),
+            name: 'Vay mua nhà dự án',
+          },
+          {
+            id: nanoid(),
+            name: 'Vay xây - sửa nhà',
+          }
+        ]
+      }
+    ]
   },
   {
     id: nanoid(),
